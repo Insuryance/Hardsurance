@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 
 const PrismBackground = dynamic(
   () =>
-    import('./vgpu-prism/prism-background').then(
+    import('./vgpu-prims/prism-background').then(
       (module) => module.PrismBackground
     ),
   { ssr: false }
