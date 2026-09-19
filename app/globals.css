@@ -379,7 +379,7 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
   isolation: isolate;
   background: #050605;
   border: 1px solid rgba(210, 255, 145, 0.14);
-  cursor: crosshair;
+  cursor: default;
 }
 
 .prism-wrap canvas {
@@ -644,7 +644,7 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
   height: 100%;
   display: block;
   touch-action: none;
-  cursor: crosshair;
+  cursor: default;
 }
 
 .hero-optics::after {
