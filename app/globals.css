@@ -210,10 +210,23 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
 .case-hero .shell > p:not(.eyebrow) { max-width: 650px; margin-bottom: 32px; color: #c3c7c2; font-size: 16px; line-height: 1.6; }
 .case-risks { padding: 120px 0; }
 .risk-list { display: grid; grid-template-columns: repeat(2, 1fr); border: 1px solid var(--line-dark); }
-.risk-list article { min-height: 250px; padding: 27px; border-bottom: 1px solid var(--line-dark); border-right: 1px solid var(--line-dark); }
+.risk-list article {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 36px;
+  border-bottom: 1px solid var(--line-dark);
+  border-right: 1px solid var(--line-dark);
+}
 .risk-list article:nth-child(even) { border-right: 0; }
 .risk-list article:nth-last-child(-n+2) { border-bottom: 0; }
-.risk-list h3 { margin: 78px 0 13px; font-family: var(--font-serif), serif; font-size: 28px; font-weight: 400; }
+.risk-list h3 {
+  margin: 24px 0 13px;
+  font-family: var(--font-serif), serif;
+  font-size: 28px;
+  font-weight: 400;
+}
 .risk-list p { color: #676c67; font-size: 13px; line-height: 1.6; }
 .method ol { margin: 0 0 50px; padding: 0; list-style: none; border-top: 1px solid var(--line); }
 .method li { min-height: 160px; display: grid; grid-template-columns: 170px 1fr; align-items: center; border-bottom: 1px solid var(--line); }
