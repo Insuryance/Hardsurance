@@ -96,8 +96,20 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
 .use-case-section, .insights-section, .architecture, .method, .principles, .open-note { padding-block: 126px; }
 .use-case-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .use-case-card { min-height: 500px; position: relative; overflow: hidden; background: var(--ink-soft); }
-.use-case-card video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.5) brightness(.5); transition: filter .5s, transform 1s; }
-.use-case-card:hover video { filter: saturate(.75) brightness(.66); transform: scale(1.035); }
+.use-case-card video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(.62) brightness(.58);
+  transform: scale(1.01);
+  transition: filter .5s, transform 1s;
+}
+.use-case-card:hover video {
+  filter: saturate(.82) brightness(.68);
+  transform: scale(1.035);
+}
 .use-case-card:after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(7,8,7,.95), transparent 70%); }
 .use-case-card > div { position: absolute; z-index: 2; inset: auto 32px 30px; }
 .use-case-card span { color: var(--brass-light); font-family: var(--font-mono), monospace; font-size: 10px; }
