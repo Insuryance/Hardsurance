@@ -1365,3 +1365,28 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
     border-bottom: 0;
   }
 }
+/* Prevent long demo filenames from overflowing */
+
+.pdf-file-head {
+  min-width: 0;
+}
+
+.pdf-file-head > div {
+  min-width: 0;
+}
+
+.pdf-file-head strong {
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.pdf-file-head small {
+  white-space: normal;
+}
