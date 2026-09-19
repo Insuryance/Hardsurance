@@ -805,10 +805,10 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
   pointer-events: none;
   background:
     radial-gradient(
-      260px circle at var(--cursor-x, -500px) var(--cursor-y, -500px),
-      rgba(122, 157, 255, 0.075),
-      rgba(198, 150, 89, 0.025) 38%,
-      transparent 72%
+      330px circle at var(--cursor-x, -500px) var(--cursor-y, -500px),
+      rgba(132, 166, 255, 0.13),
+      rgba(198, 150, 89, 0.045) 42%,
+      transparent 74%
     );
   mix-blend-mode: screen;
 }
