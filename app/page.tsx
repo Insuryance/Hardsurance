@@ -3,6 +3,7 @@ import { DemoWorkspace } from '@/components/demo-workspace';
 import { HoverVideo } from '@/components/hover-video';
 import { RiskOrb } from '@/components/risk-orb';
 import { articles, useCases } from '@/lib/content';
+import { ContactForm } from '@/components/contact-form';
 
 const jobs = [
   ['01', 'Map the system', 'Connect assets, software, vendors, contracts and operating locations.'],
@@ -99,9 +100,28 @@ export default function HomePage() {
         <div className="article-grid">{Object.entries(articles).map(([slug, article]) => <Link href={`/insights/${slug}`} key={slug}><span>{article.category}</span><h3>{article.title}</h3><p>{article.dek}</p><b>Read note ↗</b></Link>)}</div>
       </section>
 
-      <section className="contact-section" id="contact">
-        <div className="shell contact-grid"><div><p className="eyebrow">Founder-led risk review</p><h2>Bring one policy.<br />Leave with sharper questions.</h2><p>A focused conversation about one operating scenario, one policy and the gap between them.</p></div><form action="https://formspree.io/f/xkoelqyb" method="POST"><label>Name<input required name="name" autoComplete="name" /></label><label>Work email<input required type="email" name="email" autoComplete="email" /></label><label>Company<input required name="company" autoComplete="organization" /></label><label>What are you building?<textarea name="message" rows={3} /></label><button className="button primary" type="submit">Request a founder review</button></form></div>
-      </section>
+     <section className="contact-section" id="contact">
+  <div className="shell contact-grid">
+    <div>
+      <p className="eyebrow">
+        Founder-led risk review
+      </p>
+
+      <h2>
+        Bring one policy.
+        <br />
+        Leave with sharper questions.
+      </h2>
+
+      <p>
+        A focused conversation about one operating
+        scenario, one policy and the gap between them.
+      </p>
+    </div>
+
+    <ContactForm />
+  </div>
+</section>
     </>
   );
 }
