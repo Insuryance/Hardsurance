@@ -818,3 +818,86 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
     display: none;
   }
 }
+.story-film {
+  padding: 126px 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(255,255,255,.58), transparent 32%),
+    linear-gradient(135deg, #cbd9ed 0%, #91b9ed 52%, #789ed5 100%);
+  color: #0b0c0b;
+}
+
+.story-film-head {
+  display: grid;
+  grid-template-columns: 150px 1fr 360px;
+  align-items: end;
+  gap: 42px;
+  margin-bottom: 54px;
+}
+
+.story-film .eyebrow {
+  color: rgba(11, 12, 11, .58);
+}
+
+.story-film h2 {
+  margin: 0;
+  font-size: clamp(52px, 6vw, 84px);
+  line-height: .93;
+}
+
+.story-film-head > p:last-child {
+  margin: 0;
+  color: rgba(11, 12, 11, .68);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.story-film-player {
+  overflow: hidden;
+  border: 1px solid rgba(11, 12, 11, .22);
+  border-radius: 10px;
+  background: #050606;
+  box-shadow: 0 36px 90px rgba(28, 55, 94, .28);
+}
+
+.story-film-player video {
+  width: 100%;
+  aspect-ratio: 160 / 67;
+  object-fit: cover;
+}
+
+.story-film-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 18px;
+  color: rgba(11, 12, 11, .62);
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.story-film-caption p {
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .story-film {
+    padding: 82px 0;
+  }
+
+  .story-film-head {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+
+  .story-film-caption {
+    display: block;
+  }
+
+  .story-film-caption p {
+    margin-top: 8px;
+  }
+}
