@@ -1390,3 +1390,67 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
 .pdf-file-head small {
   white-space: normal;
 }
+/* Founder-review confirmation */
+
+.contact-grid button:disabled {
+  cursor: wait;
+  opacity: .65;
+}
+
+.form-error {
+  margin: 4px 0 0;
+  color: #e0a08c;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.form-success-backdrop {
+  position: fixed;
+  z-index: 200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(5, 6, 6, .76);
+  backdrop-filter: blur(18px);
+}
+
+.form-success-dialog {
+  width: min(520px, 100%);
+  padding: 48px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  background: #101210;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, .55);
+}
+
+.form-success-index {
+  color: var(--brass-light);
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.form-success-dialog h2 {
+  margin: 24px 0 18px;
+  font-size: 58px;
+  line-height: .92;
+}
+
+.form-success-dialog p {
+  max-width: 410px;
+  margin-bottom: 30px;
+  color: #a0a5a0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+@media (max-width: 620px) {
+  .form-success-dialog {
+    padding: 34px 25px;
+  }
+
+  .form-success-dialog h2 {
+    font-size: 46px;
+  }
+}
