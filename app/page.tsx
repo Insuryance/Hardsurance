@@ -53,7 +53,39 @@ export default function HomePage() {
         <div className="section-head row"><div><p className="eyebrow">Four operating environments</p><h2>Specific by design.</h2></div><p>Each risk model begins with how the hardware is built, deployed and controlled.</p></div>
         <div className="use-case-grid">{Object.entries(useCases).map(([slug, item]) => <Link href={`/use-cases/${slug}`} className="use-case-card" key={slug}><HoverVideo src={item.film} label={`${item.label} operating environment`} /><div><span>0{Object.keys(useCases).indexOf(slug)+1}</span><h3>{item.label}</h3><p>{item.description}</p><b>Explore <i>↗</i></b></div></Link>)}</div>
       </section>
+<section className="story-film">
+  <div className="shell">
+    <div className="story-film-head">
+      <p className="eyebrow">The hardware changed</p>
 
+      <h2>
+        Hardware evolved.
+        <br />
+        Its insurance schedule didn’t.
+      </h2>
+
+      <p>
+        From the first shaped stone to orbital infrastructure, machines kept
+        changing. The document meant to protect them often remained a list.
+        Hardsurance turns that gap into a living operating model.
+      </p>
+    </div>
+
+    <div className="story-film-player">
+      <video controls playsInline preload="metadata">
+        <source
+          src="/films/hardsurance-stone-to-station.mp4"
+          type="video/mp4"
+        />
+      </video>
+    </div>
+
+    <div className="story-film-caption">
+      <span>56 seconds</span>
+      <p>Why physical AI needs an insurance intelligence layer.</p>
+    </div>
+  </div>
+</section>
       <section className="demo-section light">
         <div className="shell">
           <div className="section-head row"><div><p className="eyebrow">Live product simulation</p><h2>See the reasoning, not just the answer.</h2></div><p>Select an operation and watch the agents build an evidence-backed coverage decision.</p></div>
