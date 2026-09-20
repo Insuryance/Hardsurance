@@ -333,12 +333,12 @@ export function DemoWorkspace({
 
             <div className={stage >= 5 ? 'revealed' : ''}>
               <strong>{data.impact.timeSaved}</strong>
-              <span>Analyst time saved</span>
+              <span>Estimated review time saved</span>
             </div>
 
             <div className={stage >= 5 ? 'revealed' : ''}>
               <strong>{data.impact.leakage}</strong>
-              <span>Potential leakage flagged</span>
+              <span>Potential leakage · illustrative</span>
             </div>
           </div>
 
@@ -351,14 +351,6 @@ export function DemoWorkspace({
               ))}
             </ol>
           </div>
-
-          <button
-            className="decision-export"
-            type="button"
-          >
-            Export decision brief ↗
-          </button>
-
           <small className="demo-disclaimer">
             Illustrative analysis only. Final coverage depends
             on the complete policy, facts and carrier
