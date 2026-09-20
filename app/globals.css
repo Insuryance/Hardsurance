@@ -1590,3 +1590,168 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
     grid-template-columns: 1fr;
   }
 }
+/* Formal demo composition */
+
+.demo-body.demo-body-v2 {
+  min-height: 0;
+  display: grid;
+  grid-template-columns:
+    minmax(280px, 340px)
+    minmax(0, 1fr);
+  grid-template-areas:
+    "policy record"
+    "impact impact";
+}
+
+.policy-preview {
+  grid-area: policy;
+  min-width: 0;
+}
+
+.demo-v2 .decision-record {
+  grid-area: record;
+  min-width: 0;
+}
+
+.demo-v2 .impact-panel {
+  grid-area: impact;
+  display: grid;
+  grid-template-columns:
+    140px
+    minmax(360px, 1.1fr)
+    minmax(300px, .9fr);
+  grid-template-areas:
+    "title metrics actions"
+    "disclaimer disclaimer disclaimer";
+  gap: 24px 38px;
+  align-items: start;
+  padding: 30px 32px;
+  border-top: 1px solid var(--line);
+  border-left: 0;
+  background: #0d0f0e;
+}
+
+.impact-panel > .eyebrow {
+  grid-area: title;
+  margin-top: 4px;
+}
+
+.impact-panel .impact-grid {
+  grid-area: metrics;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid rgba(255, 255, 255, .09);
+  border-left: 1px solid rgba(255, 255, 255, .09);
+}
+
+.impact-panel .impact-grid > div {
+  min-height: 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 18px;
+  border-right: 1px solid rgba(255, 255, 255, .09);
+  border-bottom: 1px solid rgba(255, 255, 255, .09);
+}
+
+.impact-panel .impact-grid strong {
+  margin-bottom: 9px;
+  font-size: 28px;
+}
+
+.impact-panel .next-actions {
+  grid-area: actions;
+  padding: 0;
+}
+
+.impact-panel .next-actions ol {
+  margin-bottom: 0;
+}
+
+.impact-panel .demo-disclaimer {
+  grid-area: disclaimer;
+  max-width: 760px;
+  margin: 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+/* Tighter and more document-like comparison */
+
+.demo-v2 .decision-record {
+  padding: 30px;
+}
+
+.demo-v2 .record-head {
+  min-height: 76px;
+}
+
+.demo-v2 .agent-progress {
+  margin: 18px 0;
+}
+
+.demo-v2 .agent-progress > div {
+  min-height: 62px;
+}
+
+.demo-v2 .decision-record dl > div {
+  min-height: 74px;
+}
+
+/* Tablet */
+
+@media (max-width: 1050px) {
+  .demo-body.demo-body-v2 {
+    grid-template-columns: 280px minmax(0, 1fr);
+    grid-template-areas:
+      "policy record"
+      "impact impact";
+  }
+
+  .demo-v2 .impact-panel {
+    grid-template-columns: 120px 1fr;
+    grid-template-areas:
+      "title metrics"
+      "actions actions"
+      "disclaimer disclaimer";
+  }
+
+  .impact-panel .next-actions {
+    padding-top: 4px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 760px) {
+  .demo-body.demo-body-v2 {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "policy"
+      "record"
+      "impact";
+  }
+
+  .demo-v2 .impact-panel {
+    display: block;
+    padding: 26px 18px;
+  }
+
+  .impact-panel > .eyebrow {
+    margin-bottom: 20px;
+  }
+
+  .impact-panel .impact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .impact-panel .next-actions {
+    padding-top: 28px;
+  }
+
+  .impact-panel .demo-disclaimer {
+    margin-top: 24px;
+  }
+}
