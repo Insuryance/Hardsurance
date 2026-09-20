@@ -1547,3 +1547,46 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
     margin: 0;
   }
 }
+/* Refined film section */
+
+.story-film {
+  padding: 96px 0 72px;
+  background:
+    radial-gradient(
+      circle at 14% 8%,
+      rgba(255, 255, 255, .56),
+      transparent 31%
+    ),
+    linear-gradient(
+      135deg,
+      #c5d5ea 0%,
+      #91b5e4 52%,
+      #779dd2 100%
+    );
+}
+
+.story-film-head {
+  grid-template-columns: 120px minmax(0, 1fr) 340px;
+  margin-bottom: 44px;
+}
+
+.story-film-player {
+  border-radius: 6px;
+  box-shadow:
+    0 38px 100px rgba(23, 45, 78, .25),
+    0 0 0 1px rgba(10, 20, 35, .12);
+}
+
+.story-film-caption {
+  padding-top: 16px;
+}
+
+@media (max-width: 760px) {
+  .story-film {
+    padding: 76px 0 58px;
+  }
+
+  .story-film-head {
+    grid-template-columns: 1fr;
+  }
+}
