@@ -1487,3 +1487,63 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
     font-size: 46px;
   }
 }
+/* Tighter editorial homepage section */
+
+.jobs-section {
+  padding: 100px 0;
+}
+
+.jobs-section .section-head {
+  max-width: none;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, .55fr);
+  column-gap: 100px;
+  align-items: end;
+  margin-bottom: 54px;
+}
+
+.jobs-section .section-head .eyebrow {
+  grid-column: 1 / -1;
+  margin-bottom: 18px;
+}
+
+.jobs-section .section-head h2 {
+  max-width: 760px;
+  margin: 0;
+}
+
+.jobs-section .section-head > p:not(.eyebrow) {
+  margin: 0 0 8px;
+  align-self: end;
+}
+
+.jobs-grid article {
+  min-height: 220px;
+}
+
+.jobs-grid h3 {
+  margin-top: 54px;
+}
+
+@media (max-width: 760px) {
+  .jobs-section {
+    padding: 82px 0;
+  }
+
+  .jobs-section .section-head {
+    display: block;
+    margin-bottom: 42px;
+  }
+
+  .jobs-section .section-head .eyebrow {
+    margin-bottom: 16px;
+  }
+
+  .jobs-section .section-head h2 {
+    margin-bottom: 25px;
+  }
+
+  .jobs-section .section-head > p:not(.eyebrow) {
+    margin: 0;
+  }
+}
