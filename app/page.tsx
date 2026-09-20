@@ -73,7 +73,14 @@ export default function HomePage() {
     </div>
 
     <div className="story-film-player">
-      <video controls playsInline preload="metadata">
+     <video
+  autoPlay
+  muted
+  loop
+  playsInline
+  preload="auto"
+  aria-label="The evolution of hardware and the insurance intelligence gap"
+>
         <source
           src="/films/hardsurance-stone-to-station.mp4"
           type="video/mp4"
