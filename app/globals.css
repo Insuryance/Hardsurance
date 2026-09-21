@@ -1755,3 +1755,769 @@ h1, h2 { font-family: var(--font-serif), serif; font-weight: 400; letter-spacing
     margin-top: 24px;
   }
 }
+/* =========================================================
+   FINAL RESPONSIVE CORRECTION LAYER
+   Keep this at the absolute bottom of globals.css
+   ========================================================= */
+
+/* Prevent any section, canvas or long text from widening the page */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+main,
+section,
+header,
+footer,
+article,
+aside,
+div {
+  min-width: 0;
+}
+
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+button,
+a,
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+.button,
+.header-cta,
+.menu {
+  touch-action: manipulation;
+}
+
+/* Fluid site margins */
+
+.shell,
+.site-footer {
+  width: min(1240px, calc(100% - clamp(36px, 6vw, 64px)));
+}
+
+/* Prevent large headings from overflowing */
+
+h1,
+h2,
+h3,
+p,
+a,
+strong,
+dd {
+  overflow-wrap: break-word;
+}
+
+.page-hero h1,
+.case-hero h1,
+.hero-optics-copy h1 {
+  text-wrap: balance;
+}
+
+.section-head h2,
+.story-film h2,
+.contact-grid h2 {
+  text-wrap: balance;
+}
+
+/* Fluid vertical section spacing */
+
+.jobs-section,
+.demo-section,
+.contact-section {
+  padding-block: clamp(76px, 9vw, 126px);
+}
+
+.use-case-section,
+.insights-section,
+.architecture,
+.method,
+.principles,
+.open-note {
+  padding-block: clamp(76px, 9vw, 126px);
+}
+
+/* Large tablets and smaller laptops */
+
+@media (max-width: 1100px) {
+  .jobs-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jobs-grid article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .jobs-grid article:nth-child(n + 3) {
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .jobs-section .section-head {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.6fr);
+    column-gap: 56px;
+  }
+
+  .story-film-head {
+    grid-template-columns: 100px minmax(0, 1fr) minmax(240px, 300px);
+    gap: 28px;
+  }
+
+  .story-film h2 {
+    font-size: clamp(46px, 5.8vw, 70px);
+  }
+
+  .article-grid > a {
+    grid-template-columns: 90px minmax(0, 1fr) minmax(220px, 0.8fr);
+  }
+
+  .article-grid > a b {
+    display: none;
+  }
+
+  .contact-grid {
+    gap: 70px;
+  }
+}
+
+/* Tablets */
+
+@media (max-width: 900px) {
+  /* Homepage hero */
+
+  .hero-optics {
+    height: auto;
+    min-height: 980px;
+  }
+
+  .hero-optics-copy {
+    top: 130px;
+    left: 50%;
+    width: min(720px, calc(100% - 48px));
+    transform: translateX(-50%);
+    text-align: center;
+  }
+
+  .hero-optics-copy h1 {
+    font-size: clamp(64px, 10vw, 88px);
+  }
+
+  .hero-optics-copy .lede {
+    margin-inline: auto;
+  }
+
+  .hero-optics-copy .actions {
+    justify-content: center;
+  }
+
+  .hero-prism-frame {
+    top: 43%;
+    right: 4%;
+    width: 92%;
+    height: 43%;
+  }
+
+  .hero-optics-foot {
+    left: 24px;
+    right: 24px;
+  }
+
+  /* Section headings */
+
+  .section-head.row,
+  .jobs-section .section-head {
+    display: block;
+  }
+
+  .section-head.row > p,
+  .jobs-section .section-head > p:not(.eyebrow) {
+    max-width: 620px;
+    margin-top: 24px;
+  }
+
+  /* Story video */
+
+  .story-film-head {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .story-film-head > p:last-child {
+    max-width: 620px;
+  }
+
+  /* Product demo */
+
+  .demo-body.demo-body-v2 {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "policy"
+      "record"
+      "impact";
+  }
+
+  .policy-preview {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .pdf-sheet {
+    min-height: 320px;
+  }
+
+  .demo-v2 .impact-panel {
+    grid-template-columns: 110px minmax(0, 1fr);
+    grid-template-areas:
+      "title metrics"
+      "actions actions"
+      "disclaimer disclaimer";
+  }
+
+  .agent-progress {
+    grid-template-columns: repeat(5, minmax(100px, 1fr));
+    overflow-x: auto;
+  }
+
+  /* Contact form */
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .contact-grid > div {
+    max-width: 700px;
+  }
+
+  /* Internal article pages */
+
+  .article-page {
+    display: block;
+    padding-top: 140px;
+  }
+
+  .article-page > aside {
+    position: static;
+    max-width: 520px;
+    margin: 44px 0;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .company-story .shell {
+    gap: 56px;
+  }
+
+  .knowledge-layout {
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: 46px;
+  }
+}
+
+/* Phones */
+
+@media (max-width: 680px) {
+  .shell,
+  .site-footer {
+    width: calc(100% - 36px);
+  }
+
+  /* Header */
+
+  .site-header {
+    top: 8px;
+    width: calc(100% - 16px);
+    height: 58px;
+    padding-inline: 14px;
+  }
+
+  .wordmark {
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: 0.09em;
+  }
+
+  .brand-mark {
+    width: 27px;
+    height: 27px;
+  }
+
+  .site-header nav {
+    top: 66px;
+    max-height: calc(100svh - 82px);
+    overflow-y: auto;
+  }
+
+  .site-header nav a {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Hero */
+
+  .hero-optics {
+    min-height: max(820px, 100svh);
+  }
+
+  .hero-optics-copy {
+    top: 102px;
+    width: calc(100% - 36px);
+  }
+
+  .hero-optics-copy h1 {
+    margin: 16px 0 20px;
+    font-size: clamp(50px, 15.5vw, 70px);
+    line-height: 0.9;
+  }
+
+  /* Let the browser choose sensible mobile line breaks */
+
+  .hero-optics-copy h1 br {
+    display: none;
+  }
+
+  .hero-optics-copy .lede {
+    max-width: 500px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .hero-optics-copy .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .hero-optics-copy .button {
+    width: 100%;
+    min-height: 50px;
+  }
+
+  .hero-prism-frame {
+    top: 49%;
+    right: -3%;
+    width: 106%;
+    height: 35%;
+  }
+
+  .hero-optics-foot {
+    left: 18px;
+    right: 18px;
+    bottom: 16px;
+    align-items: flex-start;
+  }
+
+  .hero-optics-foot > span {
+    max-width: 130px;
+  }
+
+  .hero-optics-foot div {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 12px;
+  }
+
+  /* General headings */
+
+  .eyebrow {
+    font-size: 9px;
+  }
+
+  .section-head {
+    margin-bottom: 38px;
+  }
+
+  .section-head h2 {
+    font-size: clamp(40px, 12vw, 52px);
+  }
+
+  .page-hero {
+    min-height: auto;
+    padding: 138px 0 72px;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(48px, 13.5vw, 62px);
+  }
+
+  .page-hero > p:not(.eyebrow) {
+    font-size: 15px;
+  }
+
+  /* Jobs */
+
+  .jobs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .jobs-grid article,
+  .jobs-grid article:not(:first-child) {
+    min-height: auto;
+    padding: 28px 0 32px;
+    border-right: 0;
+    border-top: 1px solid var(--line-dark);
+  }
+
+  .jobs-grid h3 {
+    margin-top: 44px;
+  }
+
+  /* Full-width background film */
+
+  .film-feature {
+    min-height: 620px;
+  }
+
+  .film-copy {
+    padding-bottom: 54px;
+  }
+
+  .film-copy h2 {
+    font-size: clamp(45px, 13vw, 58px);
+  }
+
+  /* Use cases */
+
+  .use-case-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .use-case-card {
+    min-height: 390px;
+  }
+
+  .use-case-card > div {
+    inset: auto 22px 24px;
+  }
+
+  .use-case-card h3 {
+    font-size: 36px;
+  }
+
+  /* Blue story-film section */
+
+  .story-film {
+    padding: 72px 0 54px;
+  }
+
+  .story-film h2 {
+    font-size: clamp(42px, 12vw, 56px);
+  }
+
+  .story-film-player {
+    border-radius: 4px;
+  }
+
+  .story-film-player video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 160 / 67;
+  }
+
+  .story-film-caption {
+    display: block;
+    font-size: 8px;
+    line-height: 1.5;
+  }
+
+  .story-film-caption p {
+    margin-top: 8px;
+  }
+
+  /* Demo */
+
+  .demo-toolbar {
+    min-height: 58px;
+    padding: 10px 14px;
+  }
+
+  .demo-toolbar > span {
+    display: none;
+  }
+
+  .demo-tabs {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+  }
+
+  .demo-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .demo-tabs button {
+    flex: 0 0 auto;
+    min-width: max-content;
+  }
+
+  .policy-preview,
+  .demo-v2 .decision-record,
+  .demo-v2 .impact-panel {
+    padding: 22px 18px;
+  }
+
+  .pdf-sheet {
+    min-height: 290px;
+    padding: 28px 20px;
+  }
+
+  .record-head {
+    display: block;
+    min-height: 0;
+    padding-bottom: 20px;
+  }
+
+  .record-head .status {
+    display: inline-flex;
+    margin-bottom: 8px;
+  }
+
+  .agent-progress {
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .agent-progress > div {
+    min-height: 48px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+  }
+
+  .demo-v2 .decision-record dl > div {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 20px 0;
+  }
+
+  .demo-v2 .impact-panel {
+    display: block;
+  }
+
+  .impact-panel > .eyebrow {
+    margin-bottom: 20px;
+  }
+
+  .impact-panel .impact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .impact-panel .impact-grid > div {
+    min-height: 104px;
+    padding: 14px;
+  }
+
+  .impact-panel .impact-grid strong {
+    font-size: 25px;
+  }
+
+  .impact-panel .next-actions {
+    padding-top: 28px;
+  }
+
+  .demo-foot {
+    min-height: 76px;
+    align-items: flex-start;
+    padding: 18px;
+  }
+
+  .demo-foot span {
+    max-width: 230px;
+  }
+
+  /* Article and research lists */
+
+  .article-grid > a,
+  .insight-index a {
+    min-height: 0;
+    display: block;
+    padding: 30px 0;
+  }
+
+  .article-grid h3,
+  .insight-index h2 {
+    margin: 34px 0 14px;
+  }
+
+  .article-grid b,
+  .insight-index b {
+    display: block;
+    margin-top: 22px;
+  }
+
+  /* Company and other pages */
+
+  .company-story .shell,
+  .knowledge-layout,
+  .knowledge-grid,
+  .knowledge-links {
+    grid-template-columns: 1fr;
+  }
+
+  .company-story h2 {
+    font-size: clamp(44px, 12vw, 54px);
+  }
+
+  .principles > div:last-child {
+    grid-template-columns: 1fr;
+  }
+
+  .case-hero {
+    min-height: 660px;
+  }
+
+  .case-hero h1 {
+    font-size: clamp(50px, 14vw, 66px);
+  }
+
+  .risk-list {
+    grid-template-columns: 1fr;
+  }
+
+  .risk-list article {
+    min-height: 230px;
+    padding: 28px 22px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line-dark) !important;
+  }
+
+  .risk-list article:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .method li {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 14px;
+    padding: 28px 0;
+  }
+
+  /* Footer */
+
+  .site-footer {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 24px;
+  }
+
+  .site-footer > div:first-child,
+  .site-footer .copyright {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Very small phones */
+
+@media (max-width: 420px) {
+  .hero-optics {
+    min-height: 800px;
+  }
+
+  .hero-optics-copy {
+    top: 92px;
+  }
+
+  .hero-optics-copy h1 {
+    font-size: clamp(46px, 14.5vw, 60px);
+  }
+
+  .hero-prism-frame {
+    top: 51%;
+    height: 31%;
+  }
+
+  .hero-optics-foot > span {
+    display: none;
+  }
+
+  .hero-optics-foot {
+    justify-content: flex-end;
+  }
+
+  .section-head h2 {
+    font-size: 40px;
+  }
+
+  .impact-panel .impact-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer > div,
+  .site-footer > div:first-child,
+  .site-footer .copyright {
+    grid-column: 1;
+  }
+
+  .page-cta {
+    padding-inline: 18px;
+  }
+
+  .page-cta .button {
+    width: 100%;
+  }
+}
+
+/* Short landscape phones and small-height laptops */
+
+@media (max-height: 700px) and (orientation: landscape) and (min-width: 680px) {
+  .hero-optics {
+    min-height: 700px;
+    height: 700px;
+  }
+
+  .hero-optics-copy {
+    top: 120px;
+    left: 5vw;
+    width: 46vw;
+    transform: none;
+    text-align: left;
+  }
+
+  .hero-optics-copy h1 {
+    font-size: clamp(48px, 7vw, 72px);
+  }
+
+  .hero-optics-copy .actions {
+    justify-content: flex-start;
+  }
+
+  .hero-prism-frame {
+    top: 12%;
+    right: 0;
+    width: 57%;
+    height: 74%;
+  }
+
+  .hero-optics-foot {
+    bottom: 18px;
+  }
+}
+
+/* Do not run decorative cursor effects on touch devices */
+
+@media (hover: none), (pointer: coarse) {
+  .ambient-cursor {
+    display: none;
+  }
+
+  .use-case-card:hover video {
+    transform: scale(1.01);
+    filter: saturate(.62) brightness(.58);
+  }
+}
