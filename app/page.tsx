@@ -5,8 +5,6 @@ import { HoverVideo } from '@/components/hover-video';
 import { RiskOrb } from '@/components/risk-orb';
 import { articles, useCases } from '@/lib/content';
 import { ContactForm } from '@/components/contact-form';
-import { CopilotDemos } from '@/components/copilot-demos';
-
 const jobs = [
   ['01', 'Map the system', 'Connect assets, software, vendors, contracts and operating locations.'],
   ['02', 'Read the policy', 'Turn forms, schedules and endorsements into a structured coverage model.'],
