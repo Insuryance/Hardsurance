@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { DemoWorkspace } from '@/components/demo-workspace';
+import { CopilotDemos } from '@/components/copilot-demos';
 import { HoverVideo } from '@/components/hover-video';
 import { RiskOrb } from '@/components/risk-orb';
 import { articles, useCases } from '@/lib/content';
 import { ContactForm } from '@/components/contact-form';
+import { CopilotDemos } from '@/components/copilot-demos';
 
 const jobs = [
   ['01', 'Map the system', 'Connect assets, software, vendors, contracts and operating locations.'],
@@ -94,7 +96,11 @@ export default function HomePage() {
     </div>
   </div>
 </section>
-      <section className="demo-section light">
+      <div className="shell">
+  <CopilotDemos />
+</div>
+
+<section className="demo-section light">
         <div className="shell">
           <div className="section-head row"><div><p className="eyebrow">Live product simulation</p><h2>See the reasoning, not just the answer.</h2></div><p>Select an operation and watch the agents build an evidence-backed coverage decision.</p></div>
           <DemoWorkspace compact />
