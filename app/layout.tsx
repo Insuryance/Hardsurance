@@ -3,8 +3,8 @@ import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import './globals.css';
 import './care-theme.css';
-import './agent-observatory.css';
 import './formal-theme.css';
+import './premium-theme.css';
 export const metadata: Metadata = {
  metadataBase: new URL('https://www.hardsurance.com'),
  title: {default:'Hardsurance | Protection and care for advanced hardware',template:'%s | Hardsurance'},

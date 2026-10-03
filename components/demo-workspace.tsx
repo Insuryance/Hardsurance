@@ -3,29 +3,17 @@
 import {BrandMark} from '@/components/brand-mark';
 import { useEffect, useState, type CSSProperties } from 'react';
 import Link from 'next/link';
+import {careCategories} from '@/lib/care-categories';
 import {saveCareBrief} from '@/lib/care-brief';
 
 const steps = ['Your brand', 'Build the plan', 'Customer preview', 'Service journey'];
-const benefits = [
-  { id: 'breakdown', title: 'Mechanical & electrical faults', detail: 'Proposed assessment of unexpected mechanical and electrical failures.' },
-  { id: 'accidental', title: 'Accidental damage', detail: 'Proposed protection for accidental equipment damage.' },
-  { id: 'repair', title: 'Repair coordination', detail: 'Structured issue reporting and service assessment.' },
-  { id: 'replacement', title: 'Replacement assessment', detail: 'Consider a replacement when repair may not be suitable.' },
-];
 const themes = [
   { name: 'Midnight', color: '#243d54' },
   { name: 'Forest', color: '#34554a' },
   { name: 'Violet', color: '#584672' },
   { name: 'Graphite', color: '#30363d' },
 ];
-const hardware = {
-  Robotics: { model: 'Flower AMR', image: '/posters/robot-chess.jpg', serial: 'FLW-001' },
-  'Field hardware': { model: 'Field Scout', image: '/posters/industrial-site.jpg', serial: 'FLD-001' },
-  'AI infrastructure': { model: 'Compute Station', image: '/posters/data-center.jpg', serial: 'CMP-001' },
-  'Frontier systems': { model: 'Research Platform', image: '/posters/orbital.jpg', serial: 'RES-001' },
-  'Autonomous hardware': { model: 'Autonomous Platform', image: '/posters/autonomous-hardware.jpg', serial: 'AUT-001' },
-  'Silicon & AI chips': { model: 'Edge Accelerator', image: '/posters/ai-chips.jpg', serial: 'ACC-001' },
-};
+const hardware = Object.fromEntries(Object.entries(careCategories).map(([name,c]) => [name,{model:c.model,image:`/posters/${c.film}.jpg`,serial:c.serial}])) as Record<keyof typeof careCategories,{model:string;image:string;serial:string}>;
 type Hardware = keyof typeof hardware;
 
 export function DemoWorkspace({ compact = false }: { compact?: boolean }) {
@@ -38,7 +26,7 @@ export function DemoWorkspace({ compact = false }: { compact?: boolean }) {
   const [selected, setSelected] = useState(['breakdown', 'repair']);
   const [placement, setPlacement] = useState('Product page');
   const [enrolled, setEnrolled] = useState(false);
-  const [issue, setIssue] = useState('Machine won’t start');
+  const [issue, setIssue] = useState<string>(careCategories.Robotics.issues[0]);
   const [details, setDetails] = useState('The machine stopped during a normal operating cycle.');
   const [requested, setRequested] = useState(false);
   const [notice, setNotice] = useState('');
@@ -63,6 +51,8 @@ export function DemoWorkspace({ compact = false }: { compact?: boolean }) {
   const brandName = brand.trim() || 'Your brand';
   const programName = program.trim() || 'Your Care+';
   const machine = hardware[kind];
+  const category = careCategories[kind];
+  const benefits = category.benefits.map(([id,title,detail]) => ({id,title,detail}));
   const chosenBenefits = benefits.filter(b => selected.includes(b.id));
   const hasBenefits = selected.length > 0;
 
@@ -73,7 +63,7 @@ export function DemoWorkspace({ compact = false }: { compact?: boolean }) {
     setStep(0); setBrand('Flower Robotics'); setProgram('FlowerCare'); setTheme(themes[1]);
     setKind('Robotics'); setTerm('24 months'); setSelected(['breakdown', 'repair']);
     setPlacement('Product page'); setEnrolled(false); setRequested(false);
-    setIssue('Machine won’t start'); setDetails('The machine stopped during a normal operating cycle.');
+    setIssue(careCategories.Robotics.issues[0]); setDetails('The machine stopped during a normal operating cycle.');
     setNotice('Demo reset. Configure a new sample program.');
   }
   function download() {
@@ -95,8 +85,8 @@ export function DemoWorkspace({ compact = false }: { compact?: boolean }) {
       <div className="studio-editor">
         <p className="studio-kicker">{['BRAND CONFIGURATION', 'DESIGNED AROUND YOUR HARDWARE', 'MEET YOUR CUSTOMER EXPERIENCE', 'SERVICE COORDINATION'][step]}</p>
         <h3>{['Configure your brand', 'Define proposed plan benefits', 'Review the customer experience', 'Simulate a service request'][step]}</h3>
-        <p className="studio-description">{['Set the company identity, program name and equipment category for the sample customer experience.', 'Choose sample benefits and a term. The customer preview updates as you build.', 'See how your program could appear on a product page or inside a customer portal.', 'Walk through an illustrative service request in the same branded experience.'][step]}</p>
-        {step === 0 && <div className="studio-fields"><label>Company name<input maxLength={40} value={brand} onChange={e => { setBrand(e.target.value); changed(); }} placeholder="Your company"/></label><label>Care program name<input maxLength={40} value={program} onChange={e => { setProgram(e.target.value); changed(); }} placeholder="Your Care+"/></label><fieldset><legend>Brand color</legend><div className="theme-options">{themes.map(t => <button key={t.name} aria-label={`${t.name} brand color`} aria-pressed={theme.name === t.name} onClick={() => { setTheme(t); changed(); }} style={{ background: t.color }}>{theme.name === t.name ? '✓' : ''}</button>)}<span>{theme.name}</span></div></fieldset><label>Hardware category<select value={kind} onChange={e => { setKind(e.target.value as Hardware); changed(); }}>{Object.keys(hardware).map(k => <option key={k}>{k}</option>)}</select></label></div>}
+        <p className="studio-description">{['Set the company identity, program name and equipment category for the sample customer experience.', 'Select equipment-specific benefits and a term. Your customer preview updates immediately.', 'See how your program could appear on a product page or inside a customer portal.', 'Walk through an illustrative service request in the same branded experience.'][step]}</p>
+        {step === 0 && <div className="studio-fields"><label>Company name<input maxLength={40} value={brand} onChange={e => { setBrand(e.target.value); changed(); }} placeholder="Your company"/></label><label>Care program name<input maxLength={40} value={program} onChange={e => { setProgram(e.target.value); changed(); }} placeholder="Your Care+"/></label><fieldset><legend>Brand color</legend><div className="theme-options">{themes.map(t => <button key={t.name} aria-label={`${t.name} brand color`} aria-pressed={theme.name === t.name} onClick={() => { setTheme(t); changed(); }} style={{ background: t.color }}>{theme.name === t.name ? '✓' : ''}</button>)}<span>{theme.name}</span></div></fieldset><label>Hardware category<select value={kind} onChange={e => { const next=e.target.value as Hardware; setKind(next); setIssue(careCategories[next].issues[0]); setDetails(''); changed(); }}>{Object.keys(hardware).map(k => <option key={k}>{k}</option>)}</select></label></div>}
         {step === 1 && <div className="studio-fields"><label>Sample plan term<select value={term} onChange={e => { setTerm(e.target.value); changed(); }}><option>12 months</option><option>24 months</option><option>36 months</option></select></label><fieldset><legend>Choose sample benefits</legend><div className="benefit-options">{benefits.map(b => <label key={b.id}><input type="checkbox" checked={selected.includes(b.id)} onChange={e => { setSelected(e.target.checked ? [...selected, b.id] : selected.filter(id => id !== b.id)); changed(); }}/><span><b>{b.title}</b><small>{b.detail}</small></span></label>)}</div></fieldset><p className="studio-note">Illustrative plan design. Final benefits, eligibility, limits and pricing require review before launch.</p>{!hasBenefits && <p className="studio-validation" role="status">Choose at least one benefit to try enrollment.</p>}</div>}
         {step === 2 && <div className="studio-fields"><fieldset><legend>Where customers see your program</legend><div className="placement-options">{['Product page', 'Customer portal'].map(p => <button key={p} aria-pressed={placement === p} onClick={() => setPlacement(p)}>{p === 'Product page' ? '▣' : '▤'} <span>{p}</span></button>)}</div></fieldset><div className="studio-summary"><span>YOUR SAMPLE PROGRAM</span><dl><div><dt>Brand</dt><dd>{brandName}</dd></div><div><dt>Care program</dt><dd>{programName}</dd></div><div><dt>Hardware</dt><dd>{kind}</dd></div><div><dt>Term</dt><dd>{term}</dd></div><div><dt>Benefits</dt><dd>{chosenBenefits.map(b => b.title).join("; ") || "None selected"}</dd></div></dl></div><button className="studio-secondary" onClick={download}>Download sample configuration ↓</button><p className="studio-note">This exports your demo choices. It does not publish a page, activate coverage or connect to your store.</p></div>}
         {step === 3 && <div className="studio-fields"><div className="journey-step"><span>01</span><div><b>Customer reports an issue</b><p>Hardware, symptoms and plan details stay together.</p></div></div><div className="journey-step"><span>02</span><div><b>Eligibility and technical review</b><p>A real request needs assessment against the agreed terms.</p></div></div><div className="journey-step"><span>03</span><div><b>A service route is agreed</b><p>Repair or replacement depends on the plan and assessment.</p></div></div><p className="studio-note">Try the request form in the customer preview. No request leaves this browser.</p></div>}
@@ -104,7 +94,7 @@ export function DemoWorkspace({ compact = false }: { compact?: boolean }) {
       </div>
       <div className="studio-preview-area"><div className="preview-label"><span><i/> CUSTOMER VIEW</span><span>Updates as you build</span></div><div className="branded-preview">
         <div className="customer-nav"><span className="customer-monogram">{brandName.slice(0, 1).toUpperCase()}</span><b>{brandName}</b><span>Care and support</span></div>
-        {step === 3 ? <div className="customer-service"><p className="customer-eyebrow">{programName} / SUPPORT</p>{requested ? <><div className="customer-success">✓</div><h4>Sample request recorded</h4><p>Sample request <b>DEMO-001</b> created for your {machine.model}.</p><div className="customer-request"><b>{issue}</b><p>{details}</p><span>Awaiting assessment · simulation</span></div><p className="studio-note">No request was sent. No coverage decision or service commitment has been made.</p><button className="customer-button" onClick={() => { setRequested(false); setNotice(''); }}>Try another request</button></> : <><h4>Submit an equipment<br/>service request.</h4><div className="customer-asset"><span>▧</span><div><b>{machine.model}</b><small>{machine.serial} · Sample asset</small></div></div><form onSubmit={e => { e.preventDefault(); if (!details.trim()) { setNotice('Please describe the issue before creating a sample request.'); return; } setRequested(true); setNotice('Sample service request created. Nothing was sent.'); }}><label>What happened?<select value={issue} onChange={e => setIssue(e.target.value)}><option>Machine won’t start</option><option>Mechanical or electrical fault</option><option>Accidental damage</option><option>Something else</option></select></label><label>Describe the issue<textarea required rows={3} maxLength={500} value={details} onChange={e => setDetails(e.target.value)}/></label><button className="customer-button">Create sample request →</button></form></>}</div> : <>
+        {step === 3 ? <div className="customer-service"><p className="customer-eyebrow">{programName} / SUPPORT</p>{requested ? <><div className="customer-success">✓</div><h4>Sample request recorded</h4><p>Sample request <b>DEMO-001</b> created for your {machine.model}.</p><div className="customer-request"><b>{issue}</b><p>{details}</p><span>Awaiting assessment · simulation</span></div><p className="studio-note">No request was sent. No coverage decision or service commitment has been made.</p><button className="customer-button" onClick={() => { setRequested(false); setNotice(''); }}>Try another request</button></> : <><h4>Submit an equipment<br/>service request.</h4><div className="customer-asset"><span>▧</span><div><b>{machine.model}</b><small>{machine.serial} · Sample asset</small></div></div><form onSubmit={e => { e.preventDefault(); if (!details.trim()) { setNotice('Please describe the issue before creating a sample request.'); return; } setRequested(true); setNotice('Sample service request created. Nothing was sent.'); }}><label>What happened?<select value={issue} onChange={e => setIssue(e.target.value)}>{category.issues.map(v=><option key={v}>{v}</option>)}</select></label><label>Describe the issue<textarea required rows={3} maxLength={500} value={details} onChange={e => setDetails(e.target.value)}/></label><button className="customer-button">Create sample request →</button></form></>}</div> : <>
         <div className="customer-image" style={{ backgroundImage: `linear-gradient(180deg, transparent, rgba(10,20,30,.65)), url('${machine.image}')` }}><span>{kind.toUpperCase()}</span><h4>{step === 2 && placement === 'Customer portal' ? 'Hardware categories. In good hands.' : 'Hardware care and support'}</h4></div>
         <div className="customer-plan">{step === 2 && placement === 'Customer portal' && <div className="portal-machine"><span className="customer-eyebrow">YOUR REGISTERED HARDWARE</span><div><span>▧</span><div><b>{machine.model}</b><small>{machine.serial} · Sample asset</small></div><i>{enrolled ? 'Sample enrolled' : 'Explore care'}</i></div></div>}<div className="customer-plan-title"><div><span className="customer-eyebrow">{step === 2 && placement === 'Customer portal' ? 'YOUR CARE PROGRAM' : 'PROPOSED CARE PROGRAM'}</span><h4>{programName}</h4></div><span className="care-symbol">+</span></div><p>Proposed care for your {machine.model}.<br/>{term} of illustrative protection.</p><ul>{chosenBenefits.map(b => <li key={b.id}><span>✓</span>{b.title}</li>)}{!hasBenefits && <li>Choose benefits in “Build the plan”.</li>}</ul><div className="customer-price"><span>Pricing to be confirmed</span><span>Sample plan</span></div>{step === 2 ? <button className="customer-button" disabled={!hasBenefits || enrolled} onClick={() => { setEnrolled(true); setNotice('Sample enrollment complete. No payment or coverage was activated.'); }}>{enrolled ? 'Sample enrollment complete ✓' : 'Try sample enrollment →'}</button> : <div className="customer-button customer-button-static">{step === 0 ? 'Your brand. Powered by Hardsurance.' : 'Proposed plan configuration'}</div>}<p className="customer-disclosure">Demo only. No purchase or active coverage.</p></div></>}
         <div className="customer-footer"><span>{brandName} / {programName}</span><span>Sample experience</span></div>
