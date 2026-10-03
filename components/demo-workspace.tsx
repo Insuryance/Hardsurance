@@ -1,379 +1,91 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import {BrandMark} from '@/components/brand-mark';
+import { useState, type CSSProperties } from 'react';
+import Link from 'next/link';
+import {saveCareBrief} from '@/lib/care-brief';
 
-const scenarios = {
-  Robotics: {
-    operation:
-      'Autonomous inspection robot, customer facility, remote software update v4.8',
-    clause:
-      'Products and completed operations endorsement, form PL 14 02',
-    finding:
-      'Coverage may not follow a material autonomy change after deployment.',
-    action:
-      'Disclose the update cadence and add affirmative software-trigger language.',
-    severity: 'Material gap',
-
-    document: {
-      name: 'Atlas Robotics — Product Liability 2026.pdf',
-      pages: 84,
-      activePage: 47,
-      reference: 'PL 14 02 §3(b)',
-      excerpt:
-        'Coverage applies to products and completed operations disclosed in the schedule and accepted by the insurer.',
-    },
-
-    impact: {
-      clauses: '37',
-      gaps: '3',
-      timeSaved: '11.6h',
-      leakage: '$420k',
-    },
-
-    actions: [
-      'Disclose the remote software update cadence.',
-      'Request affirmative software-trigger language.',
-      'Add deployed fleet version evidence to the renewal file.',
-    ],
-  },
-
-  Drones: {
-    operation:
-      'BVLOS corridor, 18 kg payload, third-party pilot, two operating states',
-    clause:
-      'Territory and approved-use schedule, aviation liability section 4',
-    finding:
-      'One mission state is outside the scheduled operating territory.',
-    action:
-      'Extend territory before the route becomes operational.',
-    severity: 'Boundary conflict',
-
-    document: {
-      name: 'Aerial Systems — Aviation Liability 2026.pdf',
-      pages: 62,
-      activePage: 29,
-      reference: 'Aviation Liability §4.2',
-      excerpt:
-        'Covered operations are limited to approved territories, uses and pilots listed in the attached schedule.',
-    },
-
-    impact: {
-      clauses: '29',
-      gaps: '2',
-      timeSaved: '8.4h',
-      leakage: '$275k',
-    },
-
-    actions: [
-      'Add the second operating state to the territory schedule.',
-      'Confirm the third-party pilot is an approved operator.',
-      'Attach BVLOS authorization and route evidence.',
-    ],
-  },
-
-  'Data center': {
-    operation:
-      'Cooling loop B-14, specialist maintenance vendor, 2.8 MW customer load',
-    clause:
-      'Dependent business interruption, named supplier schedule',
-    finding:
-      'The cooling vendor is absent from the dependent property schedule.',
-    action:
-      'Add the vendor and validate the interruption sublimit.',
-    severity: 'Dependency gap',
-
-    document: {
-      name: 'Northstar Compute — Property Package 2026.pdf',
-      pages: 116,
-      activePage: 73,
-      reference: 'Dependent Property §7.1',
-      excerpt:
-        'Coverage applies only to interruption caused by direct physical loss at a dependent property named in the schedule.',
-    },
-
-    impact: {
-      clauses: '54',
-      gaps: '4',
-      timeSaved: '15.2h',
-      leakage: '$1.8m',
-    },
-
-    actions: [
-      'Add the cooling vendor to the dependent property schedule.',
-      'Validate the interruption sublimit against customer load.',
-      'Link maintenance and replacement evidence to cooling loop B-14.',
-    ],
-  },
-
-  Space: {
-    operation:
-      'Payload in road transit before launch-site integration',
-    clause:
-      'Marine cargo termination and pre-launch inception provisions',
-    finding:
-      'There is a twelve-hour handoff with no confirmed responding policy.',
-    action:
-      'Align cargo termination with pre-launch attachment.',
-    severity: 'Handoff gap',
-
-    document: {
-      name: 'Orbital Node — Transit & Pre-launch 2026.pdf',
-      pages: 71,
-      activePage: 38,
-      reference: 'Attachment Clause §5.4',
-      excerpt:
-        'Pre-launch coverage attaches after delivery to the integration facility and written acceptance by the launch provider.',
-    },
-
-    impact: {
-      clauses: '31',
-      gaps: '2',
-      timeSaved: '9.7h',
-      leakage: '$860k',
-    },
-
-    actions: [
-      'Align cargo termination with pre-launch attachment.',
-      'Document custody during the twelve-hour handoff.',
-      'Confirm written acceptance evidence with the launch provider.',
-    ],
-  },
-} as const;
-
-const stages = [
-  'Open policy PDF',
-  'Extract clauses and schedules',
-  'Map operating facts',
-  'Compare policy to operation',
-  'Prepare actions and impact',
+const steps = ['Your brand', 'Build the plan', 'Customer preview', 'Service journey'];
+const benefits = [
+  { id: 'breakdown', title: 'Mechanical & electrical faults', detail: 'A starting point for unexpected hardware failures.' },
+  { id: 'accidental', title: 'Accidental damage', detail: 'Explore protection for real-world mishaps.' },
+  { id: 'repair', title: 'Repair coordination', detail: 'A clear route from issue to service assessment.' },
+  { id: 'replacement', title: 'Replacement assessment', detail: 'Consider a replacement when repair may not be suitable.' },
 ];
+const themes = [
+  { name: 'Midnight', color: '#243d54' },
+  { name: 'Forest', color: '#34554a' },
+  { name: 'Violet', color: '#584672' },
+  { name: 'Graphite', color: '#30363d' },
+];
+const hardware = {
+  Robotics: { model: 'Atlas AMR', image: '/posters/robot-chess.jpg', serial: 'ATL-001' },
+  'Field hardware': { model: 'Field Scout', image: '/posters/industrial-site.jpg', serial: 'FLD-001' },
+  'AI infrastructure': { model: 'Compute Station', image: '/posters/data-center.jpg', serial: 'CMP-001' },
+};
+type Hardware = keyof typeof hardware;
 
-type Scenario = keyof typeof scenarios;
+export function DemoWorkspace({ compact = false }: { compact?: boolean }) {
+  const [step, setStep] = useState(0);
+  const [brand, setBrand] = useState('Atlas Robotics');
+  const [program, setProgram] = useState('Atlas Care+');
+  const [theme, setTheme] = useState(themes[0]);
+  const [kind, setKind] = useState<Hardware>('Robotics');
+  const [term, setTerm] = useState('24 months');
+  const [selected, setSelected] = useState(['breakdown', 'repair']);
+  const [placement, setPlacement] = useState('Product page');
+  const [enrolled, setEnrolled] = useState(false);
+  const [issue, setIssue] = useState('Machine won’t start');
+  const [details, setDetails] = useState('The machine stopped during a normal operating cycle.');
+  const [requested, setRequested] = useState(false);
+  const [notice, setNotice] = useState('');
+  const brandName = brand.trim() || 'Your brand';
+  const programName = program.trim() || 'Your Care+';
+  const machine = hardware[kind];
+  const chosenBenefits = benefits.filter(b => selected.includes(b.id));
+  const hasBenefits = selected.length > 0;
 
-export function DemoWorkspace({
-  compact = false,
-}: {
-  compact?: boolean;
-}) {
-  const [selected, setSelected] = useState<Scenario>('Robotics');
-  const [stage, setStage] = useState(0);
+  function navigate(next: number) { setStep(next); setNotice(''); }
+  function changed() { setEnrolled(false); setRequested(false); setNotice(''); }
+  function reset() {
+    setStep(0); setBrand('Atlas Robotics'); setProgram('Atlas Care+'); setTheme(themes[0]);
+    setKind('Robotics'); setTerm('24 months'); setSelected(['breakdown', 'repair']);
+    setPlacement('Product page'); setEnrolled(false); setRequested(false);
+    setIssue('Machine won’t start'); setDetails('The machine stopped during a normal operating cycle.');
+    setNotice('Demo reset. Create something that feels like your brand.');
+  }
+  function download() {
+    const draft = { status: 'illustrative-draft-not-live', brand: brandName, program: programName,
+      brandColor: theme.color, hardware: kind, term, benefits: chosenBenefits.map(b => b.title), placement,
+      pricing: 'To be confirmed', note: 'Sample configuration only. No coverage, deployment or service is activated.' };
+    const url = URL.createObjectURL(new Blob([JSON.stringify(draft, null, 2)], { type: 'application/json' }));
+    const link = document.createElement('a'); link.href = url; link.download = 'hardsurance-care-draft.json'; link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setNotice('Your sample program configuration has been downloaded.');
+  }
 
-  const data = scenarios[selected];
-
-  useEffect(() => {
-    setStage(0);
-
-    const timers = [550, 1200, 1950, 2750, 3650].map(
-      (delay, index) =>
-        window.setTimeout(() => setStage(index + 1), delay),
-    );
-
-    return () => timers.forEach(window.clearTimeout);
-  }, [selected]);
-
-  return (
-    <div
-      className={`demo-workspace demo-v2 ${
-        compact ? 'compact' : ''
-      }`}
-    >
-      <div className="demo-toolbar">
-        <div>
-          <span className="live-dot" />
-          Hardsurance policy intelligence
-        </div>
-
-        <span>Illustrative product simulation</span>
+  return <div className={`care-studio ${compact ? 'studio-compact' : ''}`} style={{ '--brand-color': theme.color } as CSSProperties}>
+    <div className="studio-chrome"><div className="window-dots" aria-hidden="true"><i/><i/><i/></div><span>hardsurance / care studio</span><span className="studio-sandbox"><i/> Interactive sandbox</span></div>
+    <div className="studio-toolbar"><div><span className="mini-mark"><BrandMark/></span><b>Care Studio</b><span className="toolbar-divider"/><span>{brandName}</span></div><button type="button" onClick={reset}>Reset demo ↺</button></div>
+    <div className="studio-steps" aria-label="Program builder steps">{steps.map((s, i) => <button key={s} aria-current={step === i ? 'step' : undefined} onClick={() => navigate(i)}><span>{String(i + 1).padStart(2, '0')}</span>{s}<i>{i < step ? '✓' : '→'}</i></button>)}</div>
+    <div className="studio-content">
+      <div className="studio-editor">
+        <p className="studio-kicker">{['MAKE IT YOURS', 'DESIGNED AROUND YOUR HARDWARE', 'MEET YOUR CUSTOMER EXPERIENCE', 'FROM AN ISSUE TO A NEXT STEP'][step]}</p>
+        <h3>{['Your product. Your name.', 'Give your care plan shape.', 'Your brand, all the way.', 'Care continues after checkout.'][step]}</h3>
+        <p className="studio-description">{['Hardsurance works behind the scenes. Your customers see a care experience that belongs to you.', 'Choose sample benefits and a term. The customer preview updates as you build.', 'See how your program could appear on a product page or inside a customer portal.', 'Walk through an illustrative service request in the same branded experience.'][step]}</p>
+        {step === 0 && <div className="studio-fields"><label>Company name<input maxLength={40} value={brand} onChange={e => { setBrand(e.target.value); changed(); }} placeholder="Your company"/></label><label>Care program name<input maxLength={40} value={program} onChange={e => { setProgram(e.target.value); changed(); }} placeholder="Your Care+"/></label><fieldset><legend>Brand color</legend><div className="theme-options">{themes.map(t => <button key={t.name} aria-label={`${t.name} brand color`} aria-pressed={theme.name === t.name} onClick={() => { setTheme(t); changed(); }} style={{ background: t.color }}>{theme.name === t.name ? '✓' : ''}</button>)}<span>{theme.name}</span></div></fieldset><label>Hardware category<select value={kind} onChange={e => { setKind(e.target.value as Hardware); changed(); }}>{Object.keys(hardware).map(k => <option key={k}>{k}</option>)}</select></label></div>}
+        {step === 1 && <div className="studio-fields"><label>Sample plan term<select value={term} onChange={e => { setTerm(e.target.value); changed(); }}><option>12 months</option><option>24 months</option><option>36 months</option></select></label><fieldset><legend>Choose sample benefits</legend><div className="benefit-options">{benefits.map(b => <label key={b.id}><input type="checkbox" checked={selected.includes(b.id)} onChange={e => { setSelected(e.target.checked ? [...selected, b.id] : selected.filter(id => id !== b.id)); changed(); }}/><span><b>{b.title}</b><small>{b.detail}</small></span></label>)}</div></fieldset><p className="studio-note">Illustrative plan design. Final benefits, eligibility, limits and pricing require review before launch.</p>{!hasBenefits && <p className="studio-validation" role="status">Choose at least one benefit to try enrollment.</p>}</div>}
+        {step === 2 && <div className="studio-fields"><fieldset><legend>Where customers see your program</legend><div className="placement-options">{['Product page', 'Customer portal'].map(p => <button key={p} aria-pressed={placement === p} onClick={() => setPlacement(p)}>{p === 'Product page' ? '▣' : '▤'} <span>{p}</span></button>)}</div></fieldset><div className="studio-summary"><span>YOUR SAMPLE PROGRAM</span><dl><div><dt>Brand</dt><dd>{brandName}</dd></div><div><dt>Care program</dt><dd>{programName}</dd></div><div><dt>Term</dt><dd>{term}</dd></div><div><dt>Benefits</dt><dd>{selected.length} selected</dd></div></dl></div><button className="studio-secondary" onClick={download}>Download sample configuration ↓</button><p className="studio-note">This exports your demo choices. It does not publish a page, activate coverage or connect to your store.</p></div>}
+        {step === 3 && <div className="studio-fields"><div className="journey-step"><span>01</span><div><b>Customer reports an issue</b><p>Hardware, symptoms and plan details stay together.</p></div></div><div className="journey-step"><span>02</span><div><b>Eligibility and technical review</b><p>A real request needs assessment against the agreed terms.</p></div></div><div className="journey-step"><span>03</span><div><b>A service route is agreed</b><p>Repair or replacement depends on the plan and assessment.</p></div></div><p className="studio-note">Try the request form in the customer preview. No request leaves this browser.</p></div>}
+        <div className="studio-navigation">{step > 0 && <button onClick={() => navigate(step - 1)}>← Back</button>}{step < 3 && <button className="studio-next" onClick={() => navigate(step + 1)}>{['Build your plan', 'Preview the experience', 'Try the service journey'][step]} <span>→</span></button>}{step === 3 && <Link className="studio-next" href="/#contact" onClick={()=>saveCareBrief({source:"Care Studio sample configuration",company:brandName,program:programName,hardware:kind,summary:`${term}; proposed benefits: ${chosenBenefits.map(b=>b.title).join(", ")}. Brand color: ${theme.color}. Placement: ${placement}. Sample configuration, subject to final terms and availability.`})}>Build this with Hardsurance ↗</Link>}</div>
       </div>
-
-      <div
-        className="demo-tabs"
-        aria-label="Select a hardware scenario"
-      >
-        {(Object.keys(scenarios) as Scenario[]).map((name) => (
-          <button
-            key={name}
-            className={selected === name ? 'active' : ''}
-            onClick={() => setSelected(name)}
-          >
-            {name}
-          </button>
-        ))}
-      </div>
-
-      <div className="demo-body demo-body-v2">
-        <section
-          className="policy-preview"
-          aria-label="Policy PDF preview"
-        >
-          <div className="pdf-file-head">
-            <span className="pdf-badge">PDF</span>
-
-            <div>
-              <strong>{data.document.name}</strong>
-
-              <small>
-                {data.document.pages} pages · Page{' '}
-                {data.document.activePage}
-              </small>
-            </div>
-          </div>
-
-          <div className="pdf-sheet">
-            <span className="pdf-page-number">
-              {data.document.activePage} / {data.document.pages}
-            </span>
-
-            <p className="pdf-title">Policy endorsement</p>
-
-            <i className="pdf-line wide" />
-            <i className="pdf-line" />
-            <i className="pdf-line short" />
-
-            <div
-              className={`pdf-highlight ${
-                stage >= 2 ? 'revealed' : ''
-              }`}
-            >
-              <b>{data.document.reference}</b>
-              <p>{data.document.excerpt}</p>
-            </div>
-
-            <i className="pdf-line wide" />
-            <i className="pdf-line" />
-            <i className="pdf-line short" />
-          </div>
-
-          <div className="parser-state">
-            <span className={stage >= 2 ? 'complete' : ''} />
-
-            {stage >= 2
-              ? 'Relevant language extracted'
-              : 'Parsing policy language'}
-          </div>
-        </section>
-
-        <section className="decision-record">
-          <div className="record-head">
-            <div>
-              <p className="eyebrow">Coverage comparison</p>
-              <h3>{selected} policy test</h3>
-            </div>
-
-            <span
-              className={
-                stage >= 5 ? 'status ready' : 'status'
-              }
-            >
-              {stage >= 5 ? data.severity : 'Analysing'}
-            </span>
-          </div>
-
-          <div className="agent-progress">
-            {stages.map((label, index) => (
-              <div
-                className={
-                  stage > index
-                    ? 'complete'
-                    : stage === index
-                      ? 'working'
-                      : ''
-                }
-                key={label}
-              >
-                <span>
-                  {stage > index ? '✓' : `0${index + 1}`}
-                </span>
-
-                <small>{label}</small>
-              </div>
-            ))}
-          </div>
-
-          <dl>
-            <div className={stage >= 2 ? 'revealed' : ''}>
-              <dt>Policy evidence</dt>
-              <dd>{data.clause}</dd>
-            </div>
-
-            <div className={stage >= 3 ? 'revealed' : ''}>
-              <dt>Operating fact</dt>
-              <dd>{data.operation}</dd>
-            </div>
-
-            <div className={stage >= 4 ? 'revealed' : ''}>
-              <dt>Intelligence finding</dt>
-              <dd>{data.finding}</dd>
-            </div>
-
-            <div
-              className={
-                stage >= 5 ? 'revealed action' : ''
-              }
-            >
-              <dt>Recommended action</dt>
-              <dd>{data.action}</dd>
-            </div>
-          </dl>
-        </section>
-
-        <aside className="impact-panel">
-          <p className="eyebrow">Intelligence impact</p>
-
-          <div className="impact-grid">
-            <div className={stage >= 5 ? 'revealed' : ''}>
-              <strong>{data.impact.clauses}</strong>
-              <span>Clauses mapped</span>
-            </div>
-
-            <div className={stage >= 5 ? 'revealed' : ''}>
-              <strong>{data.impact.gaps}</strong>
-              <span>Gaps surfaced</span>
-            </div>
-
-            <div className={stage >= 5 ? 'revealed' : ''}>
-              <strong>{data.impact.timeSaved}</strong>
-              <span>Estimated review time saved</span>
-            </div>
-
-            <div className={stage >= 5 ? 'revealed' : ''}>
-              <strong>{data.impact.leakage}</strong>
-              <span>Potential leakage · illustrative</span>
-            </div>
-          </div>
-
-          <div className="next-actions">
-            <b>Prepared next actions</b>
-
-            <ol>
-              {data.actions.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ol>
-          </div>
-          <small className="demo-disclaimer">
-            Illustrative analysis only. Final coverage depends
-            on the complete policy, facts and carrier
-            determination.
-          </small>
-        </aside>
-      </div>
-
-      <div className="demo-foot">
-        <span>
-          Every conclusion remains linked to an operating fact
-          and policy clause.
-        </span>
-
-        <button
-          onClick={() => {
-            setStage(0);
-            window.setTimeout(() => setStage(1), 120);
-          }}
-        >
-          Run again
-        </button>
-      </div>
-    </div>
-  );
+      <div className="studio-preview-area"><div className="preview-label"><span><i/> CUSTOMER VIEW</span><span>Updates as you build</span></div><div className="branded-preview">
+        <div className="customer-nav"><span className="customer-monogram">{brandName.slice(0, 1).toUpperCase()}</span><b>{brandName}</b><span>Care & support</span></div>
+        {step === 3 ? <div className="customer-service"><p className="customer-eyebrow">{programName} / SUPPORT</p>{requested ? <><div className="customer-success">✓</div><h4>A clear next step.</h4><p>Sample request <b>DEMO-001</b> created for your {machine.model}.</p><div className="customer-request"><b>{issue}</b><p>{details}</p><span>Awaiting assessment · simulation</span></div><p className="studio-note">No request was sent. No coverage decision or service commitment has been made.</p><button className="customer-button" onClick={() => { setRequested(false); setNotice(''); }}>Try another request</button></> : <><h4>Let’s look after<br/>your hardware.</h4><div className="customer-asset"><span>▧</span><div><b>{machine.model}</b><small>{machine.serial} · Sample asset</small></div></div><form onSubmit={e => { e.preventDefault(); if (!details.trim()) { setNotice('Please describe the issue before creating a sample request.'); return; } setRequested(true); setNotice('Sample service request created. Nothing was sent.'); }}><label>What happened?<select value={issue} onChange={e => setIssue(e.target.value)}><option>Machine won’t start</option><option>Mechanical or electrical fault</option><option>Accidental damage</option><option>Something else</option></select></label><label>Describe the issue<textarea required rows={3} maxLength={500} value={details} onChange={e => setDetails(e.target.value)}/></label><button className="customer-button">Create sample request →</button></form></>}</div> : <>
+        <div className="customer-image" style={{ backgroundImage: `linear-gradient(180deg, transparent, rgba(10,20,30,.65)), url('${machine.image}')` }}><span>{kind.toUpperCase()}</span><h4>{step === 2 && placement === 'Customer portal' ? 'Your hardware. In good hands.' : 'Built for the extraordinary.'}</h4></div>
+        <div className="customer-plan">{step === 2 && placement === 'Customer portal' && <div className="portal-machine"><span className="customer-eyebrow">YOUR REGISTERED HARDWARE</span><div><span>▧</span><div><b>{machine.model}</b><small>{machine.serial} · Sample asset</small></div><i>{enrolled ? 'Sample enrolled' : 'Explore care'}</i></div></div>}<div className="customer-plan-title"><div><span className="customer-eyebrow">{step === 2 && placement === 'Customer portal' ? 'YOUR CARE PROGRAM' : 'ADD A LITTLE PEACE OF MIND'}</span><h4>{programName}</h4></div><span className="care-symbol">+</span></div><p>Thoughtful care for your {machine.model}.<br/>{term} of illustrative protection.</p><ul>{chosenBenefits.map(b => <li key={b.id}><span>✓</span>{b.title}</li>)}{!hasBenefits && <li>Choose benefits in “Build the plan”.</li>}</ul><div className="customer-price"><span>Pricing to be confirmed</span><span>Sample plan</span></div>{step === 2 ? <button className="customer-button" disabled={!hasBenefits || enrolled} onClick={() => { setEnrolled(true); setNotice('Sample enrollment complete. No payment or coverage was activated.'); }}>{enrolled ? 'Sample enrollment complete ✓' : 'Try sample enrollment →'}</button> : <div className="customer-button customer-button-static">{step === 0 ? 'Your brand. Powered by Hardsurance.' : 'Your sample plan, taking shape.'}</div>}<p className="customer-disclosure">Demo only. No purchase or active coverage.</p></div></>}
+        <div className="customer-footer"><span>{brandName} / {programName}</span><span>Sample experience</span></div>
+      </div><p className="preview-caption">Your customer relationship. Your identity. Hardsurance behind the scenes.</p></div>
+    </div><div className="studio-status" role="status"><span><i/> {notice || 'Demo workspace · sample data · changes reset on reload'}</span><span>Nothing published</span></div>
+  </div>;
 }

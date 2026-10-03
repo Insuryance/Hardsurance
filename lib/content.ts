@@ -1,72 +1,14 @@
-export const useCases = {
-  robotics: {
-    label: 'Robotics',
-    title: 'Coverage that understands autonomy.',
-    description: 'Map deployed fleets, software updates, human oversight and product liability into one insurance view.',
-    film: '/films/robot-chess.mp4',
-    risks: ['Products and completed operations', 'Remote software updates', 'Human override and supervision', 'Field testing and leased equipment'],
-  },
-  drones: {
-    label: 'Drones',
-    title: 'From flight envelope to policy boundary.',
-    description: 'Test BVLOS operations, payloads, territory, pilot requirements and third-party liability against actual missions.',
-    film: '/films/industrial-site.mp4',
-    risks: ['BVLOS and territorial restrictions', 'Payload and sensor values', 'Cyber takeover and navigation failure', 'Ground equipment and transit'],
-  },
-  'data-centers': {
-    label: 'Data centers',
-    title: 'Find the dependency behind the downtime.',
-    description: 'Connect cooling, power, vendors and customer workloads before a single failure becomes a portfolio event.',
-    film: '/films/data-center.mp4',
-    risks: ['Dependent business interruption', 'Equipment breakdown', 'Utility service interruption', 'Declared values and replacement cost'],
-  },
-  space: {
-    label: 'Space systems',
-    title: 'One view from integration to orbit.',
-    description: 'Trace transit, testing, integration, launch attachment and mission phases through the policy stack.',
-    film: '/films/orbital.mp4',
-    risks: ['Pre-launch testing', 'Transit and integration', 'Launch attachment', 'Payload and mission failure'],
-  },
+export const useCases={
+ 'ai-chips':{label:'Silicon & AI chips',title:'Small components. Extraordinary possibilities.',description:'From GPUs and AI accelerators to edge compute modules, silicon powers a new generation of machines. We’re exploring care for the physical hardware that makes intelligence possible.',film:'/films/ai-chips.mp4',risks:['Chip, board and system identification','Thermal and power conditions','Diagnostics and fault history','Manufacturer warranty and service options']},
+ robotics:{label:'Robotics',title:'Care for your next pair of hands.',description:'From warehouse robots to machines working alongside people, care should reflect the real deployment.',film:'/films/robot-chess.mp4',risks:['Machine and serial details','Operating environment','Fault and damage history','Repair and service records']},
+ drones:{label:'Field hardware',title:'Big ideas leave the lab.',description:'Drones, sensors and field devices work in changing environments. Help us shape care around those realities.',film:'/films/industrial-site.mp4',risks:['Device and payload details','Operating locations','Maintenance history','Service and recovery needs']},
+ 'data-centers':{label:'AI infrastructure',title:'Care for the hardware behind intelligence.',description:'Compute, cooling and connected equipment keep physical AI running. We’re exploring what a simpler care experience could look like.',film:'/films/data-center.mp4',risks:['Equipment inventory','Site and installation details','Component dependencies','Existing service agreements']},
+ space:{label:'Frontier systems',title:'Ambitious machines. Thoughtful care.',description:'Advanced systems stretch the boundaries of hardware. We’re listening to builders to understand where better care can help.',film:'/films/orbital.mp4',risks:['System and component details','Testing environment','Specialist service needs','Lifecycle and handoff records']}
 };
-
-export const articles = {
-  'bvlos-policy-boundaries': {
-    category: 'Drones',
-    title: 'BVLOS approval is not the same as insurance permission',
-    dek: 'A practical way to test operational approval, territorial language and pilot requirements before a mission leaves the visual line of sight.',
-    source: 'Federal Aviation Administration',
-    sourceUrl: 'https://www.faa.gov/uas/advanced_operations/beyond_visual_line_of_sight',
-    sections: [
-      ['Start with the operation', 'A policy review should begin with what the aircraft is actually doing: where it flies, who supervises it, what it carries and how control transfers. Regulatory approval answers a different question from insurance coverage.'],
-      ['Trace the policy boundary', 'The agent maps the mission against territory, approved use, pilot requirements, cyber events and third-party liability. Any mismatch becomes a specific question for the carrier rather than a vague concern.'],
-      ['Preserve the evidence', 'Flight logs, maintenance records, software versions and operator approvals should be tied to the same scenario. That evidence matters at renewal and again if a claim occurs.'],
-    ],
-  },
-  'critical-infrastructure-dependencies': {
-    category: 'Data centers',
-    title: 'The cooling loop is part of the insurance perimeter',
-    dek: 'Why dependency mapping matters when facilities, utilities and customer workloads share the same failure path.',
-    source: 'Cybersecurity and Infrastructure Security Agency',
-    sourceUrl: 'https://www.cisa.gov/topics/critical-infrastructure-security-and-resilience/critical-infrastructure-sectors',
-    sections: [
-      ['The asset list is not the system', 'A server schedule can show declared value without showing the dependencies that keep the facility operating. Cooling, power, network and specialist vendors belong in the same risk model.'],
-      ['Interruption is a graph problem', 'A component can be inexpensive while the workload it supports is material. Hardsurance traces the failure path and checks how equipment breakdown, utility interruption and dependent business interruption respond.'],
-      ['Use the model at renewal', 'The result is a defensible schedule of assets, dependencies, owners and evidence. Finance, engineering and the broker can review the same operating truth.'],
-    ],
-  },
-  'prelaunch-coverage': {
-    category: 'Space',
-    title: 'Coverage before launch attachment deserves its own map',
-    dek: 'Transit, integration and pre-launch testing can sit across different contracts and different policy phases.',
-    source: 'NASA Small Spacecraft Systems Virtual Institute',
-    sourceUrl: 'https://www.nasa.gov/smallsat-institute/space-mission-design-tools/',
-    sections: [
-      ['Separate the phases', 'Hardware changes custody, location and operating state before it reaches orbit. Each transition can affect responsibility, values and the policy intended to respond.'],
-      ['Model the loss event', 'Instead of asking whether the mission is insured in general, test a specific event during transit, integration or functional testing. Then trace the relevant form, exclusion and endorsement.'],
-      ['Close the handoff gap', 'A shared timeline makes it clear when one policy ends, another begins and evidence changes hands. That is where ambiguous coverage often becomes visible.'],
-    ],
-  },
+export const articles={
+ 'bvlos-policy-boundaries':{category:'Field hardware',title:'Start with the machine, not the paperwork.',dek:'The details that make a useful hardware care record.',sections:[['Know what you have','Start with a model, serial number, purchase record and a description of how the machine is used.'],['Keep the context','Operating conditions and maintenance history help explain an issue when it occurs.'],['Keep it together','A shared machine record gives your team one place to begin a service conversation.']]},
+ 'critical-infrastructure-dependencies':{category:'Hardware care',title:'A better service request starts before a fault.',dek:'Make the next conversation easier with a simple, consistent record.',sections:[['Record the baseline','Keep installation details, manuals and service contacts alongside the equipment record.'],['Describe the change','Capture when the issue started, what changed and any visible error messages.'],['Track the next step','Give each service request an owner and keep assessment updates with the machine.']]},
+ 'prelaunch-coverage':{category:'Physical AI',title:'Care should grow with your hardware.',dek:'From one machine to a fleet, continuity matters.',sections:[['Start small','A clear record for one machine is a useful foundation.'],['Keep handoffs visible','As equipment changes teams or locations, update its record and service contact.'],['Build for the lifecycle','Treat commissioning, maintenance and service as parts of the same hardware story.']]}
 };
-
-export type UseCaseSlug = keyof typeof useCases;
-export type ArticleSlug = keyof typeof articles;
+export type UseCaseSlug=keyof typeof useCases;
+export type ArticleSlug=keyof typeof articles;

@@ -1,138 +1,16 @@
 import Link from 'next/link';
-import { DemoWorkspace } from '@/components/demo-workspace';
-import { CopilotDemos } from '@/components/copilot-demos';
-import { HoverVideo } from '@/components/hover-video';
-import { RiskOrb } from '@/components/risk-orb';
-import { articles, useCases } from '@/lib/content';
-import { ContactForm } from '@/components/contact-form';
-const jobs = [
-  ['01', 'Map the system', 'Connect assets, software, vendors, contracts and operating locations.'],
-  ['02', 'Read the policy', 'Turn forms, schedules and endorsements into a structured coverage model.'],
-  ['03', 'Test the gaps', 'Compare how the company operates with what the policy actually promises.'],
-  ['04', 'Run the renewal', 'Keep evidence, decisions and carrier questions in one live record.'],
-];
-
-export default function HomePage() {
-  return (
-    <>
-      <section className="hero-optics" data-hero-theme>
-        <RiskOrb />
-        <div className="hero-optics-copy">
-          <p className="eyebrow">The insurance copilot for physical AI</p>
-          <h1>Know what your<br />policy misses.</h1>
-          <p className="lede">
-            Hardsurance connects how your machines operate to the clauses meant
-            to protect them. It shows founders what is covered, what is unclear
-            and what to fix before a claim.
-          </p>
-          <div className="actions">
-            <Link className="button primary" href="#contact">Book a founder review</Link>
-            <Link className="button text" href="/demo">See the copilot work <span>↗</span></Link>
-          </div>
-        </div>
-        <div className="hero-prism-frame" data-triangle-container aria-hidden="true" />
-        <div className="hero-optics-foot">
-          <span>Move your pointer to test the signal</span>
-          <div><b>Robotics</b><b>Drones</b><b>Data centers</b><b>Space systems</b></div>
-        </div>
-      </section>
-
-      <section className="jobs-section light">
-        <div className="shell">
-          <div className="section-head"><p className="eyebrow">One operating record</p><h2>Insurance that starts with the machine.</h2><p>Not a generic chatbot. A purpose-built system that connects engineering reality to policy language.</p></div>
-          <div className="jobs-grid">{jobs.map(([number, title, body]) => <article key={number}><span>{number}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
-        </div>
-      </section>
-
-      <section className="film-feature">
-        <video autoPlay muted loop playsInline preload="metadata" poster="" aria-label="Data center infrastructure"><source src="/films/data-center.mp4" type="video/mp4" /></video>
-        <div className="film-shade" />
-        <div className="shell film-copy"><p className="eyebrow">The physical system matters</p><h2>A small dependency can carry a large loss.</h2><p>Trace cooling, power, software, operators and vendors to the policy intended to respond.</p><Link className="button outline" href="/use-cases/data-centers">Explore data centers</Link></div>
-      </section>
-
-      <section className="use-case-section shell">
-        <div className="section-head row"><div><p className="eyebrow">Four operating environments</p><h2>Specific by design.</h2></div><p>Each risk model begins with how the hardware is built, deployed and controlled.</p></div>
-        <div className="use-case-grid">{Object.entries(useCases).map(([slug, item]) => <Link href={`/use-cases/${slug}`} className="use-case-card" key={slug}><HoverVideo src={item.film} label={`${item.label} operating environment`} /><div><span>0{Object.keys(useCases).indexOf(slug)+1}</span><h3>{item.label}</h3><p>{item.description}</p><b>Explore <i>↗</i></b></div></Link>)}</div>
-      </section>
-<section className="story-film">
-  <div className="shell">
-    <div className="story-film-head">
-      <p className="eyebrow">The hardware changed</p>
-
-      <h2>
-        Hardware evolved.
-        <br />
-        Its insurance schedule didn’t.
-      </h2>
-
-      <p>
-        From the first shaped stone to orbital infrastructure, machines kept
-        changing. The document meant to protect them often remained a list.
-        Hardsurance turns that gap into a living operating model.
-      </p>
-    </div>
-
-    <div className="story-film-player">
-     <video
-  autoPlay
-  muted
-  loop
-  playsInline
-  preload="auto"
-  aria-label="The evolution of hardware and the insurance intelligence gap"
->
-        <source
-          src="/films/hardsurance-stone-to-station.mp4"
-          type="video/mp4"
-        />
-      </video>
-    </div>
-
-    <div className="story-film-caption">
-      <span>56 seconds</span>
-      <p>Why physical AI needs an insurance intelligence layer.</p>
-    </div>
-  </div>
-</section>
-      <div className="shell">
-  <CopilotDemos />
-</div>
-
-<section className="demo-section light">
-        <div className="shell">
-          <div className="section-head row"><div><p className="eyebrow">Live product simulation</p><h2>See the reasoning, not just the answer.</h2></div><p>Select an operation and watch the agents build an evidence-backed coverage decision.</p></div>
-          <DemoWorkspace compact />
-          <div className="center-action"><Link className="button dark" href="/demo">Open the full demo</Link></div>
-        </div>
-      </section>
-
-      <section className="insights-section shell">
-        <div className="section-head row"><div><p className="eyebrow">Field notes</p><h2>Read the risk before renewal.</h2></div><Link className="text-link" href="/insights">All insights ↗</Link></div>
-        <div className="article-grid">{Object.entries(articles).map(([slug, article]) => <Link href={`/insights/${slug}`} key={slug}><span>{article.category}</span><h3>{article.title}</h3><p>{article.dek}</p><b>Read note ↗</b></Link>)}</div>
-      </section>
-
-     <section className="contact-section" id="contact">
-  <div className="shell contact-grid">
-    <div>
-      <p className="eyebrow">
-        Founder-led risk review
-      </p>
-
-      <h2>
-        Bring one policy.
-        <br />
-        Leave with sharper questions.
-      </h2>
-
-      <p>
-        A focused conversation about one operating
-        scenario, one policy and the gap between them.
-      </p>
-    </div>
-
-    <ContactForm />
-  </div>
-</section>
-    </>
-  );
-}
+import {CareVideo} from '@/components/care-video';
+import {AgentObservatory} from '@/components/agent-observatory';
+import {DemoWorkspace} from '@/components/demo-workspace';
+import {ContactForm} from '@/components/contact-form';
+const benefits=[['01','Less worry.','A protection plan designed around the hardware you actually use.'],['02','A clear next step.','One place to start when a machine needs attention.'],['03','Care that keeps up.','From your first deployment to a growing fleet.']];
+export default function Home(){return <>
+<section className="landscape-hero"><div className="hero-atmosphere" aria-hidden="true"/><div className="landscape-copy shell"><p className="eyebrow">CARE FOR THE PHYSICAL WORLD</p><h1>Extraordinary machines.<br/><span>Everyday peace of mind.</span></h1><p className="lede">Protection and care for robotics, hardware and physical AI.<br/>So you can keep building what’s next.</p><div className="actions"><Link href="/#contact" className="button primary">Get early access <span>↗</span></Link><Link href="/demo" className="button hero-secondary">Build your care program <span>→</span></Link></div></div><div className="landscape-bottom shell"><span>HARDWARE MOVES THE WORLD.<br/>WE’RE HERE TO LOOK AFTER IT.</span><span>ROBOTICS · HARDWARE · PHYSICAL AI</span><a href="#care">Explore ↓</a></div></section>
+<div className="category-strip"><div className="shell"><span>A little care goes a long way.</span><b>Robotics</b><i>✳</i><b>Intelligent hardware</b><i>✳</i><b>Physical AI</b></div></div>
+<section className="section shell"><div className="section-heading"><p className="eyebrow">MEET HARDSURANCE CARE</p><h2>Complex machines.<br/><span>Refreshingly simple care.</span></h2><p>You shouldn’t need to become a hardware expert when something goes wrong. We’re building a simpler way to protect your equipment and find a path back to work.</p></div><div className="benefit-grid">{benefits.map(([n,t,d])=><article key={n}><span className="index">{n} /</span><h3>{t}</h3><p>{d}</p></article>)}</div></section>
+<section className="section mint-section" id="care"><div className="shell care-split"><div><p className="eyebrow">FROM FIRST DAY TO WHAT’S NEXT</p><h2>It’s hardware.<br/>Life happens.</h2><p>A stalled motor. A damaged sensor. A machine that just won’t start. Hardsurance is being built to make the next step feel a lot less complicated.</p><Link className="text-link" href="/product">Meet your care plan <span>↗</span></Link></div><div className="coverage-stack">{[['✳','Protection, made personal','Start with your machine, its environment and how you use it.'],['↗','A route to repair','Bring the issue, asset details and service updates into one place.'],['+','Room to grow','Keep care organized as you add devices, sites and teams.']].map(([i,t,d])=><article key={t}><span className="feature-icon">{i}</span><div><h3>{t}</h3><p>{d}</p></div></article>)}<p className="fine-print">Early access. Final plan benefits and service availability are still being developed.</p></div></div></section>
+<section className="section shell" id="machines"><div className="section-heading row"><div><p className="eyebrow">MADE FOR THE PHYSICAL WORLD</p><h2>Different machines.<br/>The same need for care.</h2></div><p>From moving parts to the infrastructure behind intelligence. Explore the environments shaping what we’re building.</p></div><div className="machine-grid">{[['robotics','Robotics','For the machines working alongside us.','robot-chess'],['drones','Field hardware','For intelligence beyond the lab.','industrial-site'],['data-centers','AI infrastructure','For the hardware behind every answer.','data-center'],['space','Frontier systems','For ambitions beyond the ordinary.','orbital'],['ai-chips','Silicon & AI chips','For the silicon powering the next generation of intelligence.','ai-chips']].map(([slug,t,d,f],i)=><article className="machine-card" key={slug}><CareVideo src={`/films/${f}.mp4`} label={t}/><div><span className="eyebrow">0{i+1} / BUILT FOR MORE</span><h3><Link href={`/use-cases/${slug}`}>{t} <span>↗</span></Link></h3><p>{d}</p></div></article>)}</div></section>
+<AgentObservatory/>
+<section className="studio-showcase" id="studio"><div className="shell"><div className="section-heading row"><div><p className="eyebrow">YOUR BRAND. YOUR CARE PROGRAM.</p><h2>An AppleCare-like experience.<br/><span>With your name on it.</span></h2></div><p>From your brand to your benefits to your customer portal. See how Hardsurance could bring your white-label care program to life.</p></div><div className="studio-frame"><DemoWorkspace compact/></div><div className="studio-showcase-foot"><span>Interactive preview. Sample plans. No signup.</span><Link className="text-link" href="/demo">Open the full workspace ↗</Link></div></div></section>
+<section className="section shell story-section"><div className="section-heading row"><div><p className="eyebrow">HARDWARE HAS COME A LONG WAY</p><h2>Its care should, too.</h2></div><p>From the first tools to machines that think and move. A new generation of hardware deserves a new generation of care.</p></div><CareVideo src="/films/hardsurance-stone-to-station.mp4" label="The evolution of hardware from stone tools to space stations"/><div className="story-caption"><span>A SHORT FILM / THE HARDWARE STORY</span><Link href="/company">Why we’re building Hardsurance ↗</Link></div></section>
+<section id="contact" className="contact-section"><div className="shell care-split"><div><p className="eyebrow">LET’S BUILD BETTER CARE</p><h2>The next big thing.<br/>With a little backup.</h2><p>Building hardware? Running a fleet? Tell us what you’re working on and help shape Hardsurance Care.</p><a className="text-link" href="mailto:contact@hardsurance.com">contact@hardsurance.com ↗</a></div><ContactForm/></div></section></>}
