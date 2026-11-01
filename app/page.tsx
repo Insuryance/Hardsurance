@@ -1,6 +1,25 @@
+import {FlipLabel} from '@/components/flip-label';
 import Link from 'next/link';import {CareVideo} from '@/components/care-video';import {CoverageExplorer} from '@/components/coverage-explorer';import {DeploymentPricing} from '@/components/deployment-pricing';import {DeploymentConsole} from '@/components/deployment-console';import {ContactForm} from '@/components/contact-form';
 export default function Home(){return <>
-<section className="home-hero"><div className="hero-landscape"/><div className="shell hero-content"><p className="eyebrow light">ROBOTICS / PHYSICAL AI INSURANCE</p><h1>Insurance that gets<br/><em>robots deployed.</em></h1><p className="hero-description">Your robot is ready for work. Give your customer a clear answer to who pays when something goes wrong.</p><div className="actions"><Link className="button ivory" href="#contact">Discuss your deployment <span>↗</span></Link><Link className="hero-link" href="/demo">Explore the platform <span>▷</span></Link></div><div className="hero-bottom"><span><i/>Free safety & security assessment</span><span>THE ROBOT. THE SITE. THE WHOLE PICTURE.</span></div></div><div className="hero-caption">DESIGNED FOR THE WORLD ROBOTS WORK IN</div></section>
+<section className="home-hero"><div className="hero-landscape"/><div className="shell hero-content"><p className="eyebrow light">ROBOTICS / PHYSICAL AI INSURANCE</p><h1>Insurance that gets<br/><em>robots deployed.</em></h1><p className="hero-description">Your robot is ready for work. Give your customer a clear answer to who pays when something goes wrong.</p><div className="actions">
+  <Link
+    className="button ivory"
+    href="#contact"
+    aria-label="Discuss your deployment"
+  >
+    <FlipLabel>Discuss your deployment</FlipLabel>
+    <span aria-hidden="true">↗</span>
+  </Link>
+
+  <Link
+    className="hero-link"
+    href="/demo"
+    aria-label="Explore the platform"
+  >
+    <FlipLabel>Explore the platform</FlipLabel>
+    <span aria-hidden="true">↗</span>
+  </Link>
+</div><div className="hero-bottom"><span><i/>Free safety & security assessment</span><span>THE ROBOT. THE SITE. THE WHOLE PICTURE.</span></div></div><div className="hero-caption">DESIGNED FOR THE WORLD ROBOTS WORK IN</div></section>
 <div className="scope-strip"><div className="shell"><span>THE WORK IS AUTONOMOUS.</span><b>The responsibility is real.</b><span>PEOPLE <i>·</i> PROPERTY <i>·</i> PHYSICAL AI</span></div></div>
 <section className="section shell problem-section"><div><p className="eyebrow">THE DEAL BEFORE THE DEPLOYMENT</p><h2>A working robot.<br/><em>A stalled deal.</em></h2></div><div><p className="large-copy">The customer is ready. Procurement asks who pays if the robot injures someone, damages equipment or is hacked.</p><p>A standard policy can leave the autonomous task unclear. We start by reading that wording against the work your robot will actually do.</p><Link className="text-link" href="/product">See the coverage areas <span>↗</span></Link></div></section>
 <CoverageExplorer/><DeploymentPricing/>
