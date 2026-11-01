@@ -19,7 +19,7 @@ export default function Home(){return <>
     <FlipLabel>Explore the platform</FlipLabel>
     <span aria-hidden="true">↗</span>
   </Link>
-</div><div className="hero-bottom"><span><i/>Free safety & security assessment</span><span>THE ROBOT. THE SITE. THE WHOLE PICTURE.</span></div></div><div className="hero-caption">DESIGNED FOR THE WORLD ROBOTS WORK IN</div></section>
+</div></section>
 <div className="scope-strip"><div className="shell"><span>THE WORK IS AUTONOMOUS.</span><b>The responsibility is real.</b><span>PEOPLE <i>·</i> PROPERTY <i>·</i> PHYSICAL AI</span></div></div>
 <section className="section shell problem-section"><div><p className="eyebrow">THE DEAL BEFORE THE DEPLOYMENT</p><h2>A working robot.<br/><em>A stalled deal.</em></h2></div><div><p className="large-copy">The customer is ready. Procurement asks who pays if the robot injures someone, damages equipment or is hacked.</p><p>A standard policy can leave the autonomous task unclear. We start by reading that wording against the work your robot will actually do.</p><Link className="text-link" href="/product">See the coverage areas <span>↗</span></Link></div></section>
 <CoverageExplorer/><DeploymentPricing/>
