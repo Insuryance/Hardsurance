@@ -1,12 +1,1 @@
-export const dynamic='force-static';
-export function GET(){return new Response(`# Hardsurance
-
-Hardsurance is building deployment insurance for robotics and physical AI. Its approach combines policy-gap review, complimentary site and fleet safety and security assessment, and available simulation and telemetry evidence. Initial focus: robotic arms and inspection robots in factories and warehouses. It is developing an MGA model; policies are intended to be issued by a licensed insurance carrier. Hardsurance is in stealth. Quote requests begin with details about the robot, use case and deployment site. Hardsurance Care is a separate proposed branded hardware care product. Demos use fictional assets to illustrate the workflow.
-
-- Website: https://www.hardsurance.com
-- Product: https://www.hardsurance.com/product
-- Hardware care: https://www.hardsurance.com/care
-- Demo: https://www.hardsurance.com/demo
-- Questions: https://www.hardsurance.com/knowledge
-- Contact: contact@hardsurance.com
-`,{headers:{'Content-Type':'text/plain; charset=utf-8'}})}
+export function GET(){return new Response(`# Hardsurance\n\nInsurance that unblocks physical AI deployments. Hardsurance assesses the robot, site and operating evidence together. Initial focus: robot arms and inspection fleets in commercial environments. Its policy-gap analysis and complimentary safety and security assessment inform a deployment-led underwriting approach. Intended MGA model: insurance policies issued on a licensed carrier's paper. Cover depends on agreed terms.\n\nPublic pages: /product, /how-it-works, /platform, /demo, /hardware, /company, /manifesto, /knowledge, /insights.\n\nThe interactive demo uses fictional records. Its optional text-excerpt check is a local keyword demonstration, not live AI analysis or an insurance quote.\n`,{headers:{'Content-Type':'text/plain; charset=utf-8'}})}

@@ -1,4 +1,3 @@
-import Link from 'next/link';
-import {articles} from '@/lib/content';
-export const metadata={title:'Care notes'};
-export default function Insights(){return <><section className="page-hero shell"><p className="eyebrow">CARE NOTES</p><h1>Notes on looking after equipment.</h1><p>Practical records to keep before equipment needs a repair.</p></section><section className="shell benefit-grid section">{Object.entries(articles).map(([slug,a])=><article key={slug}><p className="eyebrow">{a.category}</p><h3>{a.title}</h3><p>{a.dek}</p><Link className="text-link" href={`/insights/${slug}`}>Read the note ↗</Link></article>)}</section></>}
+import Link from 'next/link';import {articles} from '@/lib/content';
+export const metadata={title:'Field notes'};
+export default function Insights(){return <><section className="page-hero shell"><p className="eyebrow">FIELD NOTES</p><h1>A closer look<br/><em>at deployment risk.</em></h1><p>Practical reading before the policy review.</p></section><section className="section shell article-grid">{Object.entries(articles).map(([slug,a],i)=><Link key={slug} href={`/insights/${slug}`}><span className="small-index">0{i+1} / {a.category}</span><h2>{a.title}</h2><p>{a.dek}</p><span className="text-link">Read the note ↗</span></Link>)}</section></>}
